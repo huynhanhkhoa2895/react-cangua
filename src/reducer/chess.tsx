@@ -10,18 +10,18 @@ team.forEach((team) => {
     for(let i=0;i<4;i++){
         let id = team+""+i;
         let hourse
-        if(i==0 && team == "A"){
-            hourse = new HourseItem(id,1,2,56,team,true)
-        }else if(i==1 && team == "A"){
-            hourse = new HourseItem(id,1,3,55,team,true)
-        }else if(i==2 && team == "A"){
-            hourse = new HourseItem(id,2,3,54,team,true)
-        }else if(i==3 && team == "A"){
-            hourse = new HourseItem(id,3,3,53,team,true)
-        }else{
-            hourse = new HourseItem(id,0,0,0,team)
-        }
-        // hourse = new HourseItem(id,0,0,0,team)
+        // if(i==0 && team == "A"){
+        //     hourse = new HourseItem(id,1,2,56,team,true)
+        // }else if(i==1 && team == "A"){
+        //     hourse = new HourseItem(id,1,3,55,team,true)
+        // }else if(i==2 && team == "A"){
+        //     hourse = new HourseItem(id,2,3,54,team,true)
+        // }else if(i==3 && team == "A"){
+        //     hourse = new HourseItem(id,3,3,53,team,true)
+        // }else{
+        //     hourse = new HourseItem(id,0,0,0,team)
+        // }
+        hourse = new HourseItem(id,0,0,0,team)
         hourseList.addHourse(hourse)
     }
 });
@@ -92,13 +92,13 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
                     chessItem.setStatus(false);
                 }else{
                     chessItem.setStatus(true);
-                    // quaTeam()
+                    quaTeam()
                 }
             }else{
                 if(chessItem.checkHourseCanMoveInTeam(currentTeam)) chessItem.setStatus(false);
                 else chessItem.setStatus(true);
                 if(xingau != 1 && xingau != 6) {
-                    // quaTeam()                
+                    quaTeam()                
                 }
             }
 
@@ -109,17 +109,16 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
             chessItem.updateNoteList(note);
             stt++;
             let new_chess = chessItem.updateChess();
-            console.log(new_chess.status)
             return {...new_chess}
         default:
-            let hourse1 = new HourseItem("A0",1,2,56,"A",true)
-            let hourse2 = new HourseItem("A1",1,3,55,"A",true)
-            let hourse3 = new HourseItem("A2",2,3,54,"A",true)
-            let hourse4 = new HourseItem("A3",3,3,53,"A",true)
-            chessItem.setListCellHaveHourse(hourse1,JSON.stringify({1 : 2}),0);
-            chessItem.setListCellHaveHourse(hourse2,JSON.stringify({1 : 3}),0);
-            chessItem.setListCellHaveHourse(hourse3,JSON.stringify({2 : 3}),0);
-            chessItem.setListCellHaveHourse(hourse4,JSON.stringify({3 : 3}),0);
+            // let hourse1 = new HourseItem("A0",1,2,56,"A",true)
+            // let hourse2 = new HourseItem("A1",1,3,55,"A",true)
+            // let hourse3 = new HourseItem("A2",2,3,54,"A",true)
+            // let hourse4 = new HourseItem("A3",3,3,53,"A",true)
+            // chessItem.setListCellHaveHourse(hourse1,JSON.stringify({1 : 2}),0);
+            // chessItem.setListCellHaveHourse(hourse2,JSON.stringify({1 : 3}),0);
+            // chessItem.setListCellHaveHourse(hourse3,JSON.stringify({2 : 3}),0);
+            // chessItem.setListCellHaveHourse(hourse4,JSON.stringify({3 : 3}),0);
 
             // console.log(chessItem.updateChess())
 			return {...chessItem.updateChess()};
