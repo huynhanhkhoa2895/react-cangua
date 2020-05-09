@@ -1,0 +1,53 @@
+.odichuyen{
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+}
+.odichuyen-row{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 5px;
+}
+.odichuyen-item{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: 1px solid #444444;
+    margin: 0 10px;
+    overflow: hidden;
+}
+.odichuyen-item.odiem{
+    border-radius: unset;
+    border: 1px solid green;
+    background: green;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+.odichuyen-item.odiem>span{
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    height: 100%;
+    width: 100%;
+    line-height: 2;
+
+}
+.odichuyen-item .hourse-box{
+    height: 40px;
+    width: 40px;
+}
+.odichuyen-item .item-image{
+    height: 100%;
+    width: 100%;
+}
+.odichuyen-item .item-image img{
+    height: 100%;
+    width: 100%;
+}
+.odichuyen-item.active{
+    /* border-width: 3px; */
+}

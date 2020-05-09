@@ -1,0 +1,47 @@
+.map{
+    height: 910px;
+    width: 1000px;
+    border : 1px solid #444;
+    margin: auto;
+    margin-right: 0;
+    position: relative;
+}
+.cage-box{
+    position: absolute;
+    height: 300px;
+    width: 335px;
+    border: 1px solid #444;
+}
+.cage-box.box-A{
+    left: 65px;
+    top: -5px;
+}
+.cage-box.box-B{
+    right: 65px;
+    top: -5px;
+}
+.cage-box.box-C{
+    left: 65px;
+    top: 460px;
+}
+.cage-box.box-D{
+    right: 65px;
+    top: 460px;
+}
+.note{
+    width: 250px;
+    position: absolute;
+    background: #fff;
+    z-index: 100;
+    left: 5px;
+    height: 800px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    overflow: auto;
+}
+.list-note{
+    border-bottom: 1px solid #dedede;
+}
+.list-note p{
+    margin: 0;
+}

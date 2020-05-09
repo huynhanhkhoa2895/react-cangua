@@ -1,0 +1,35 @@
+.cage{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.cage-container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.cage-container .cage-box{
+    position: absolute;
+    height: 300px;
+    width: 335px;
+    border: 1px solid #444;
+}
+/* .cage-box.box-A{
+    left: 65px;
+    top: 95px;
+}
+.cage-box.box-B{
+    right: 65px;
+    top: 95px;
+}
+.cage-box.box-C{
+    left: 65px;
+    top: 565px;
+}
+.cage-box.box-D{
+    right: 65px;
+    top: 565px;
+} */
+.cage-box .col-6{
+    margin-top: 50px;
+}
