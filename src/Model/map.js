@@ -307,6 +307,12 @@ export const teamC = {
 }
 export const oDiemMap = 
     {
+        "1" : {
+            A : JSON.stringify({2 : 2}),
+            B : JSON.stringify({8 : 14}),
+            C : JSON.stringify({8 : 2}),
+            D : JSON.stringify({14 : 2}),
+        },
         "2" : {
             A : JSON.stringify({3 : 2}),
             B : JSON.stringify({8 : 13}),

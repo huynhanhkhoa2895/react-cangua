@@ -63,7 +63,9 @@ class HourseListItem{
         this.list[hourse.team].forEach((_hourse : Hourse)=>{
             if(check){
                 if(_hourse.id == hourse.id){
-                    let position = hourse.position += xingau
+                    let position : number;
+                    if(hourse.odiem)position = hourse.position += 1;
+                    else position = hourse.position += xingau;
                     if(hourse.status == false) hourse.position = 1;
                     else hourse.position = position; 
                     hourse.status = status;

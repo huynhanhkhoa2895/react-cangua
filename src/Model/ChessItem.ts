@@ -81,6 +81,7 @@ class ChessItem implements Chess{
                 }
             }
         }
+        
         return check;
     }
     setFinishChess(finish : boolean){

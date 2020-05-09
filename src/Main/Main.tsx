@@ -26,10 +26,10 @@ function Main(props : any) {
     function renderNote(){
       let notes = props.chess.note;
       let xhml : any = [];
-      Object.keys(notes).forEach((luot : any)=>{
+      Object.keys(notes).forEach((luot : any,k : any)=>{
         let note = notes[luot]
         xhml.push(
-          <li className="list-note">
+          <li className="list-note" key={k+"note"}>
             <p><b style={{fontSize : "16px"}}>Lượt {luot}</b></p>
             <p>Team: {note.team}</p>
             <p>Số xí ngầu: {note.xingau}</p>

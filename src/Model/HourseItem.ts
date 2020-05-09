@@ -70,33 +70,41 @@ class HourseItem implements Hourse{
         
         if(this.status){
             let allPosition=Number(this.position) + Number(xingau);
-            let check : any = allPosition <= 62 ? true : false;
-            if(allPosition <= 62){
-                for(let i = Number(this.position)+1;i < allPosition;i++){
-                    if(check){
-                        if(ListCellHaveHourse[this.map(i)] != null){
-                            check = false;
+            let check : any = true;
+            if(this.odiem){
+                let position_in_o_diem = this.position+1;
+                let obj : any = oDiemMap;
+                if((xingau == 1 || xingau == 6) && ListCellHaveHourse[this.map(position_in_o_diem)] == null){
+                    return this.map(position_in_o_diem)
+                }else if(obj[xingau.toString()][this.team] != null && obj[xingau.toString()][this.team] == this.map(position_in_o_diem) && (ListCellHaveHourse[this.map(position_in_o_diem)] == null)){
+                    console.log()
+                    return obj[xingau.toString()][this.team]
+                }else{
+                    return null;
+                }
+            }else{
+                if(allPosition <= 62){
+                    for(let i = Number(this.position)+1;i <= allPosition;i++){
+                        if(check){
+                            let hourse_in_cell = ListCellHaveHourse[this.map(i)]
+                            if(hourse_in_cell != null){
+                                if(hourse_in_cell.team == this.team){
+                                    check = false
+                                }else{
+                                    check = true;
+                                }
+                                
+                            }
                         }
-                    }
-    
-                }
-            }
-            
-            if(check) {
-                if(this.odiem){
-                    let position_in_o_diem = this.position+1;
-                    let obj : any = oDiemMap;
-                    if(xingau == 1 || xingau == 6){
-                        return this.map(position_in_o_diem)
-                    }else if(obj[xingau.toString()][this.team] != null){
-                        return obj[xingau.toString()][this.team]
-                    }else{
-                        return null;
+        
                     }
                 }
-                else return this.map(allPosition);
+                if(check) {
+                    return this.map(allPosition);
+                }else {
+                    return null
+                }
             }
-            else return null
         }else{
             return this.map(1)
         }
