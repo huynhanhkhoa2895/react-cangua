@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import ODiChuyen from '../ODiChuyen/ODiChuyen'
-import $ from 'jquery'
 import {connect} from 'react-redux';
 import './Main.css';
 import axios from 'axios';
+import Note from '../Note/Note';
+import Chat from '../Chat/Chat';
 function Main(props : any) {
     useEffect(()=>{
       // axios.post("https://api.random.org/json-rpc/2/invoke",{
@@ -23,48 +24,20 @@ function Main(props : any) {
         }
       }
     )
-    function renderNote(){
-      let notes = props.chess.note;
-      let xhml : any = [];
-      Object.keys(notes).forEach((luot : any,k : any)=>{
-        let note = notes[luot]
-        xhml.push(
-          <li className="list-note" key={k+"note"}>
-            <p><b style={{fontSize : "16px"}}>Lượt {luot}</b></p>
-            <p>Team: {note.team}</p>
-            <p>Số xí ngầu: {note.xingau}</p>
-            {
-              (!$.isEmptyObject(note.move)) ?
-                <>
-                  <p>
-                    <strong>Hourse {note.hourse.id}</strong>
-                  </p>
-                  <p>
-                    Move from {JSON.stringify(note.move.from)} to {JSON.stringify(note.move.to)}
-                  </p>
-                  {
-                    (note.move.kick != null) ?
-                    <p>Kick hourse {note.move.kick.id}</p>
-                    :
-                    ""
-                  }
-                </>
-                :
-                ""
-            }
-          </li>
-        )
-      })
-      return xhml;
-    }
+
     return (
       <div className="container-fluid pdt10">
-          <div className="row h100">
+          <div className="row h100" style={{height : 870}}>
             <div className="col-md-2 h100">
-              <div className="note">
-                <ul className="list-group">
-                  {renderNote()}
-                </ul>
+              <div className="row" style={{height: "50%"}}>
+                <div className="col-md-12 pd0">
+                  <Chat />
+                </div>
+              </div>
+              <div className="row" style={{height: "50%"}}>
+                <div className="col-md-12 pd0">
+                  <Note />
+                </div>
               </div>
             </div>
             <div className="col-md-10">
@@ -75,8 +48,6 @@ function Main(props : any) {
               </div>
             </div>
           </div>
-
-
       </div>
     );
 }
