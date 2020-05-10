@@ -21,7 +21,14 @@ team.forEach((team) => {
         // }else{
         //     hourse = new HourseItem(id,0,0,0,team)
         // }
-        hourse = new HourseItem(id,0,0,0,team)
+        if(i==0 && team == "A"){
+            hourse = new HourseItem(id,1,1,1,"A",true)
+        }else if(i==1 && team == "B"){
+            hourse = new HourseItem(id,2,1,16,"B",true)
+        }else{
+            hourse = new HourseItem(id,0,0,0,team)
+        }
+        // hourse = new HourseItem(id,0,0,0,team)
         hourseList.addHourse(hourse)
     }
 });
@@ -74,6 +81,11 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
             // hourse.hourse.cell = newPosition;
             let xingau = lacXiNgau()
             let currentTeam = team[luot];
+            if(stt == 1){
+                xingau = 6;
+            }else if(stt){
+                xingau = 1;
+            }
             note.createStep(stt,currentTeam,xingau)            
             // CHESS STATUS FALSE : PHẢI DI CHUYỂN QUÂN CỜ, TRUE : PHẢI LẮC XÍ NGẦU
             chessItem.setXiNgau(xingau)
@@ -101,12 +113,12 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
             let new_chess = chessItem.updateChess();
             return {...new_chess}
         default:
-            // let hourse1 = new HourseItem("A0",1,2,56,"A",true)
-            // let hourse2 = new HourseItem("A1",1,3,55,"A",true)
+            let hourse1 = new HourseItem("A0",1,1,1,"A",true)
+            let hourse2 = new HourseItem("B1",2,1,16,"B",true)
             // let hourse3 = new HourseItem("A2",2,3,54,"A",true)
             // let hourse4 = new HourseItem("A3",3,3,53,"A",true)
-            // chessItem.setListCellHaveHourse(hourse1,JSON.stringify({1 : 2}),0);
-            // chessItem.setListCellHaveHourse(hourse2,JSON.stringify({1 : 3}),0);
+            chessItem.setListCellHaveHourse(hourse1,JSON.stringify({1 : 1}),0);
+            chessItem.setListCellHaveHourse(hourse2,JSON.stringify({2 : 1}),0);
             // chessItem.setListCellHaveHourse(hourse3,JSON.stringify({2 : 3}),0);
             // chessItem.setListCellHaveHourse(hourse4,JSON.stringify({3 : 3}),0);
 

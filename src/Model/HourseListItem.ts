@@ -46,6 +46,7 @@ class HourseListItem{
         return isNext;
     }
     kick(_hourse : Hourse){
+
         this.list[_hourse.team].forEach((hourse : Hourse)=>{
             if(hourse.id == _hourse.id){
                 hourse.i = 0

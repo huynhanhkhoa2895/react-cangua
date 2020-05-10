@@ -72,16 +72,18 @@ class ChessItem implements Chess{
                 }
             }
         })
-        if(this.xingau == 1 || this.xingau == 6){
-            let first_cell : {[key : string] : any} = oXuatPhat;
-            let hourse_in_cell = this.ListCellHaveHourse[first_cell[team]]
-            if(hourse_in_cell != null){
-                if(hourse_in_cell.team == team){
-                    check = true
+        if(!check){
+            if(this.xingau == 1 || this.xingau == 6){
+                let first_cell : {[key : string] : any} = oXuatPhat;
+                let hourse_in_cell = this.ListCellHaveHourse[first_cell[team]]
+                if(hourse_in_cell != null){
+                    if(hourse_in_cell.team == team){
+                        check = false
+                    }
                 }
             }
         }
-        
+
         return check;
     }
     setFinishChess(finish : boolean){

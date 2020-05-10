@@ -67,7 +67,7 @@ class HourseItem implements Hourse{
         return map[_position];
     }
     getNextDestination(xingau :number,ListCellHaveHourse : any){
-        
+        let stt = 1;
         if(this.status){
             let allPosition=Number(this.position) + Number(xingau);
             let check : any = true;
@@ -87,16 +87,17 @@ class HourseItem implements Hourse{
                     for(let i = Number(this.position)+1;i <= allPosition;i++){
                         if(check){
                             let hourse_in_cell = ListCellHaveHourse[this.map(i)]
-                            if(hourse_in_cell != null){
+                            if(hourse_in_cell != null){      
                                 if(hourse_in_cell.team == this.team){
                                     check = false
                                 }else{
-                                    check = true;
+                                    if(stt == xingau)check = true;
+                                    else check = false
                                 }
                                 
                             }
                         }
-        
+                        stt++;
                     }
                 }
                 if(check) {

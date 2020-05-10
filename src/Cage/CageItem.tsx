@@ -6,13 +6,15 @@ function CageItem(props : any) {
     function renderListHourse(){
         let xhtml :any = [];
         props.chess.HourseOnChess[props.team].forEach((hourse : any,k : any)=>{
-            if(hourse.status === false){
+            
                 xhtml.push(
                     <div className="col-6 text-center" key={"CageItem_"+k}>
-                        <HourseChess hourse={hourse} />
+                        {
+                            (hourse.status === false) ? <HourseChess hourse={hourse} /> : ""
+                        }
                     </div>
                 )
-            }
+            
 
         })
         return xhtml;
