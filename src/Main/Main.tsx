@@ -58,15 +58,25 @@ function Main(props : any) {
       return xhml;
     }
     return (
-      <div className="container pdt10">
-          <div className="note">
-            <ul className="list-group">
-              {renderNote()}
-            </ul>
+      <div className="container-fluid pdt10">
+          <div className="row">
+            <div className="col-md-2">
+              <div className="note">
+                <ul className="list-group">
+                  {renderNote()}
+                </ul>
+              </div>
+            </div>
+            <div className="col-md-10">
+              <div className="map">
+                <div className="chess">
+                  <ODiChuyen />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="map">
-            <ODiChuyen />
-          </div>
+
+
       </div>
     );
 }

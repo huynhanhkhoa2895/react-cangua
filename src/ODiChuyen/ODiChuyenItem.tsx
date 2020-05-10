@@ -37,10 +37,15 @@ function ODiChuyenItem(props : any) {
         if(prevProps != null){
             let oldChess = prevProps.chess
             if(JSON.stringify(oldChess) !== JSON.stringify(chess)) {
+                if(props.lastAction.type === "READY_MOVE"){
+                    if(props.i == props.chess.PositionMustGo.i && props.j == props.chess.PositionMustGo.j)
+                    setCellActive(true)
+                }
                 if(props.lastAction.type === "MOVE"){
                     setCellActive(false)
                     setCellHourse(null)
                 }
+
                 setHourseInToCell(chess.HourseOnChess)
                 // let hourse = new HourseItem("A0",1,1,"A");
                 // if(props.i == hourse.i && props.j == hourse.j){
@@ -108,7 +113,7 @@ function ODiChuyenItem(props : any) {
     }
     return(
         <>
-            <div className={"odichuyen-item "+((props.odiem ? " odiem " : " ")+((cellActive) ? " active " : " "))+((props.i == 8 && props.j == 8) ? " opacity0 " : "")} onClick={getInfoCell}>
+            <div className={"odichuyen-item "+((props.odiem ? " odiem " : " ")+((cellActive) ? " activePointer " : " "))+((props.i == 8 && props.j == 8) ? " opacity0 " : "")} onClick={getInfoCell}>
                 {setOdiem()}
                 {renderHourse(props.chess.HourseOnChess)}
             </div>

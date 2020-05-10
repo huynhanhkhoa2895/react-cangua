@@ -1,9 +1,10 @@
 .odichuyen{
     position: absolute;
-    top: 100px;
-    left: 0;
-    width: 100%;
+    top: 60px;
+    right: 0;
+    width: 1000px;
 }
+
 .odichuyen-row{
     display: flex;
     flex-flow: row wrap;
@@ -48,6 +49,10 @@
     height: 100%;
     width: 100%;
 }
-.odichuyen-item.active{
-    /* border-width: 3px; */
+.odichuyen-item.activePointer{
+    border-width: 3px;
+}
+.xingau-info>h3{
+    letter-spacing: 0.1em;
+    color: #808080;
 }

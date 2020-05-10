@@ -1,10 +1,12 @@
 .map{
-    height: 910px;
-    width: 1000px;
-    border : 1px solid #444;
+    height: 870px;
+    width: 100%;
+    border: 1px solid #ccc;
     margin: auto;
     margin-right: 0;
     position: relative;
+    background: #fff;
+    border-radius: 6px;
 }
 .cage-box{
     position: absolute;
@@ -29,12 +31,9 @@
     top: 460px;
 }
 .note{
-    width: 250px;
-    position: absolute;
+    width: 100%;
     background: #fff;
-    z-index: 100;
-    left: 5px;
-    height: 800px;
+    height: 100%;
     border: 1px solid #ccc;
     padding: 5px;
     overflow: auto;

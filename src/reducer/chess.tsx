@@ -74,17 +74,7 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
             // hourse.hourse.cell = newPosition;
             let xingau = lacXiNgau()
             let currentTeam = team[luot];
-            note.createStep(stt,currentTeam,xingau)
-            if(stt == 1){
-                xingau = 1;
-            }else if(stt == 2){
-                xingau = 2;
-            }else if(stt == 3){
-                xingau = 4;
-            }else if(stt == 4){
-                xingau = 3;
-            }
-            
+            note.createStep(stt,currentTeam,xingau)            
             // CHESS STATUS FALSE : PHẢI DI CHUYỂN QUÂN CỜ, TRUE : PHẢI LẮC XÍ NGẦU
             chessItem.setXiNgau(xingau)
             if(hourseList.isTeamNotAnyHourse(currentTeam)){

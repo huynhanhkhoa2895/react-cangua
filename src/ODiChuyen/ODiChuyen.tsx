@@ -69,20 +69,27 @@ function ODiChuyen(props : any) {
   return (
     <>
       <div className="row">
-        <div className="col">
-          <button style={{marginTop : 10}} className="btn btn-success" onClick={lacXiNgau}>
-            Lắc Xí Ngầu
-          </button>
+        <div className="col-2">
+          <div className="row">
+            <div className="col-12">
+              <button style={{marginTop : 10}} className="btn btn-success" onClick={lacXiNgau}>
+                Lắc Xí Ngầu
+              </button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 pd0 xingau-info">
+              <h3>Xí ngầu : {props.chess.xingau}</h3>
+              <h3>Team : {props.chess.team}</h3>
+            </div>
+          </div>
         </div>
-        <div className="col text-right">
-          <h3>Xí ngầu : {props.chess.xingau}</h3>
-          <h3>Team : {props.chess.team}</h3>
+        <div className="col-10">
+          <div className="odichuyen">
+            {renderCageBox()}
+            {renderItem()}
+          </div>
         </div>
-      </div>
-
-      <div className="odichuyen">
-        {renderCageBox()}
-        {renderItem()}
       </div>
     </>
   );
