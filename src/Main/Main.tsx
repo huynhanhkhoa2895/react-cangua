@@ -59,8 +59,8 @@ function Main(props : any) {
     }
     return (
       <div className="container-fluid pdt10">
-          <div className="row">
-            <div className="col-md-2">
+          <div className="row h100">
+            <div className="col-md-2 h100">
               <div className="note">
                 <ul className="list-group">
                   {renderNote()}
