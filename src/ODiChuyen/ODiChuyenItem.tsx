@@ -38,8 +38,11 @@ function ODiChuyenItem(props : any) {
             let oldChess = prevProps.chess
             if(JSON.stringify(oldChess) !== JSON.stringify(chess)) {
                 if(props.lastAction.type === "READY_MOVE"){
-                    if(props.i == props.chess.PositionMustGo.i && props.j == props.chess.PositionMustGo.j)
-                    setCellActive(true)
+                    if(props.i == props.chess.PositionMustGo.i && props.j == props.chess.PositionMustGo.j){
+                        setCellActive(true)
+                    }else{
+                        setCellActive(false)
+                    }
                 }
                 if(props.lastAction.type === "MOVE"){
                     setCellActive(false)
