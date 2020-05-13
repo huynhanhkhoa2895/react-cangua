@@ -75,7 +75,7 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
             }
             return {...chessItem.updateChess()}
         case "LAC_XI_NGAU":   
-            let xingau = lacXiNgau()
+            let xingau = action.xingau == null ? lacXiNgau() : lacXiNgauUseAPIRandom(action.xingau);
             let currentTeam = team[luot];
             note.createStep(stt,currentTeam,xingau)            
             // CHESS STATUS FALSE : PHẢI DI CHUYỂN QUÂN CỜ, TRUE : PHẢI LẮC XÍ NGẦU
@@ -103,6 +103,86 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
             stt++;
             let new_chess = chessItem.updateChess();
             return {...new_chess}
+        case "PLAY_AUTO":
+            chessItem.setAuto(true);
+            console.log(action.xingau)
+            action.xingau.forEach((xingau : number)=>{
+                let _checkHourseCanMove : any = null;
+                let _hourseReadyMove : any = null;
+                let _hourseHasMove : any = null;
+                let _nextDestination : any = null;
+                let _oldDestination : any = null;
+                if(!chessItem.finish){
+                    chessItem.setXiNgau(xingau);
+                    chessItem.setStatus(false);
+                    var _currentTeam = team[luot];
+                    note.createStep(stt,_currentTeam,xingau)
+                    if(hourseList.isTeamNotAnyHourse(_currentTeam)){
+                        if(xingau == 1 || xingau == 6){
+                            chessItem.setStatus(false);
+                            // Phai ra quan
+                            _hourseReadyMove = hourseList.setHourseRaQuan(_currentTeam);
+                            console.log(_hourseReadyMove)
+                        }else{
+                            chessItem.setStatus(true);
+                            quaTeam()
+                        }
+                    }else{
+                        if(!chessItem.status){
+                            _checkHourseCanMove = chessItem.checkHourseCanMoveInTeamAuto(_currentTeam)
+                            if(_checkHourseCanMove.status){
+                                // Phai di chuyen
+                                // set REady move
+                                chessItem.setStatus(false);
+                                if(_checkHourseCanMove.hourse == null){
+                                    hourseList.setHourseRaQuan(_currentTeam);
+                                    console.log(hourseList)
+                                }else{
+                                    _hourseReadyMove=_checkHourseCanMove.hourse;
+                                    _oldDestination= JSON.stringify({[_hourseReadyMove.i] : _hourseReadyMove.j})
+                                    _nextDestination = _hourseReadyMove.getNextDestination(chessItem.xingau,chessItem.ListCellHaveHourse);
+                                    console.log(_nextDestination)
+                                    if(_nextDestination != null){
+                                        chessItem.setReadyToMove(action.hourse)
+                                        chessItem.setPositionMustGo(JSON.parse(_nextDestination))
+                                    }
+                                    // set ready move xong di chuyen
+                                    _hourseHasMove = _hourseReadyMove.move(_nextDestination.i,_nextDestination.j,chessItem.ListCellHaveHourse);
+                                    if(_hourseHasMove.status){
+                                        chessItem.setListCellHaveHourse(_hourseReadyMove,_nextDestination,_oldDestination);
+                                        if(_hourseHasMove.kick != null){
+                                            hourseList.kick(_hourseHasMove.kick);
+                                            hourseList.updateChess()
+                                        }
+                                        note.addMoveNote((stt),JSON.parse(_oldDestination),JSON.parse(_nextDestination),_hourseReadyMove,_hourseHasMove.kick)
+                                        hourseList.setHourseWhenMove(_hourseReadyMove,true,chessItem.xingau,chessItem)
+                                    }
+                                    chessItem.updateNoteList(note)
+                                }
+                            }
+                            else chessItem.setStatus(true);
+                        }
+                        
+                        if(xingau != 1 && xingau != 6) {
+                            quaTeam()                
+                        }
+                    }
+                    chessItem.setReadyToMove(null)
+                    chessItem.setPositionMustGo(null);
+                    chessItem.setTeam(_currentTeam);
+                    chessItem.setHourseOnChess(hourseList.updateChess())
+                    chessItem.updateNoteList(note);
+                    console.log(chessItem.HourseOnChess)
+                    stt++;
+                }else{
+                    alert("tro choi ket thuc")
+                    return {...chessItem.updateChess()}
+                }
+                
+            })
+            
+
+            return {...chessItem.updateChess()}
         default:
             // let hourse1 = new HourseItem("A0",1,1,1,"A",true)
             // let hourse2 = new HourseItem("B1",2,1,16,"B",true)
@@ -119,6 +199,9 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
 }
 function lacXiNgau(){
     return Math.floor(Math.random() * 6) + 1;
+}
+function lacXiNgauUseAPIRandom(xingau = []){
+    return xingau[stt]
 }
 function getXiNgau(){
 

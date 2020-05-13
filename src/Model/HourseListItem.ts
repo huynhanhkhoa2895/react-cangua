@@ -1,4 +1,5 @@
-import Hourse from './Hourse'
+import Hourse from './Hourse';
+import {oXuatPhat} from './map'
 import HourseList from './HourseList';
 class HourseListItem{
     list : HourseList;
@@ -15,6 +16,34 @@ class HourseListItem{
     }
     getListHourse(team : string){
         return this.list[team];
+    }
+    getListHourseRaQuan(team : string){
+        let list2 : any= [];
+        this.list[team].forEach((hourse : Hourse)=>{
+            if(hourse.status == true){
+                list2.push(hourse);
+            }
+        })
+        return list2;
+    }
+    setHourseRaQuan(team : string){
+        let _hourse : Hourse | any = null;
+        let check = true;
+        let _oXuatPhat : any = oXuatPhat;
+        this.list[team].forEach((hourse : Hourse)=>{
+            if(!hourse.status && check){
+                _hourse = hourse;
+                // hourse.status = true;
+                // hourse.move(1,1);
+                check = false;                
+                // Object.keys(JSON.parse(_oXuatPhat[team])).forEach((key : any)=>{
+                //     hourse.i= Number(key);                    
+                //     hourse.j = JSON.parse(_oXuatPhat[team])[key];
+                // })
+                
+            }
+        })
+        return _hourse;
     }
     isQuaLuot(team : string) : boolean{
         let check = true;

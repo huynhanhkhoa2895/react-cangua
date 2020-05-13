@@ -12,7 +12,8 @@ class ChessItem implements Chess{
     PositionMustGo? : any = null;
     ListCellHaveHourse? : any = {};    
     finish : boolean = false;
-    note : NoteList | any = {}
+    note : NoteList | any = {};
+    auto : boolean = false;
     constructor(xingau : number,team : string,status : boolean = true,HourseOnChess : HourseList){
         this.xingau = xingau;
         this.team = team;
@@ -68,6 +69,7 @@ class ChessItem implements Chess{
         this.HourseOnChess[team].forEach((hourse : Hourse,k : any)=>{
             if(hourse.status){
                 if(hourse.getNextDestination(this.xingau,this.ListCellHaveHourse) != null){
+
                     check = true
                 }
             }
@@ -85,6 +87,31 @@ class ChessItem implements Chess{
         }
 
         return check;
+    }
+    checkHourseCanMoveInTeamAuto(team : string) : any{
+        let check = false
+        let _hourse : Hourse | any = null;
+        this.HourseOnChess[team].forEach((hourse : Hourse,k : any)=>{
+            if(hourse.status){
+                if(hourse.getNextDestination(this.xingau,this.ListCellHaveHourse) != null){
+                    check = true;
+                    _hourse = hourse
+                }
+            }
+        })
+        if(!check){
+            if(this.xingau == 1 || this.xingau == 6){
+                let first_cell : {[key : string] : any} = oXuatPhat;
+                let hourse_in_cell = this.ListCellHaveHourse[first_cell[team]]
+                if(hourse_in_cell != null){
+                    if(hourse_in_cell.team == team){
+                        check = false
+                    }
+                }
+            }
+        }
+
+        return {status : check,hourse : _hourse};
     }
     setFinishChess(finish : boolean){
         this.finish = finish;
@@ -104,6 +131,9 @@ class ChessItem implements Chess{
     }
     updateNoteList(note : NoteList){
         return this.note = note.getListNote()
+    }
+    setAuto(auto : boolean){
+        this.auto = auto;
     }
 }
 export default ChessItem;

@@ -11,6 +11,7 @@ interface Chess{
     HourseReadyMove?: Hourse | null,
     PositionMustGo? : any,
     ListCellHaveHourse? : any,
+    auto : boolean;
     setHourseOnChess(HourseOnChess : HourseList) : void;
     setXiNgau(xingau : number) : void;
     setStatus(status : boolean) : void;

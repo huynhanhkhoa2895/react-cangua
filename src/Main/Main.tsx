@@ -3,21 +3,9 @@ import ODiChuyen from '../ODiChuyen/ODiChuyen'
 import $ from 'jquery'
 import {connect} from 'react-redux';
 import './Main.css';
-import axios from 'axios';
 function Main(props : any) {
     useEffect(()=>{
-      // axios.post("https://api.random.org/json-rpc/2/invoke",{
-      //   "jsonrpc": "2.0",
-      //   "method": "generateIntegers",
-      //   "params": {
-      //       "apiKey": "ae2ad27c-e888-4faf-8b58-92a721c07df6",
-      //       "n": 1000,
-      //       "min": 1,
-      //       "max": 6,
-      //       "replacement": true
-      //   },
-      //   "id": 42
-      // })
+      
         if(props.chess.finish){
           alert("VÁN CỜ ĐÃ KẾT THÚC")
         }
@@ -92,9 +80,7 @@ const mapDispatchToProps = (dispatch : any) => {
       move : () =>{
         dispatch({type : 'MOVE'});
       },
-      lacXiNgau : () =>{
-        dispatch({type : 'LAC_XI_NGAU'});
-      },
+      
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

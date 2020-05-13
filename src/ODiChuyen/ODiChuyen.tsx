@@ -4,10 +4,31 @@ import ODiChuyenItem from './ODiChuyenItem';
 import {connect} from 'react-redux';
 import CageItem from '../Cage/CageItem'
 import Hourse from '../Model/Hourse';
+import axios from 'axios';
+
 function ODiChuyen(props : any) {
   function lacXiNgau(){
     if(props.chess.status){
-      props.lacXiNgau();
+      axios.post("https://api.random.org/json-rpc/2/invoke",{
+        "jsonrpc": "2.0",
+        "method": "generateIntegers",
+        "params": {
+            "apiKey": "ae2ad27c-e888-4faf-8b58-92a721c07df6",
+            "n": 1000,
+            "min": 1,
+            "max": 6,
+            "replacement": true
+        },
+        "id": 42
+      }).then(function (response) {
+        let xingau = response.data.result.random.data;
+        props.lacXiNgau(xingau);
+        console.log("response",response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
     }else{
       alert("Chưa hết lượt mời bạn di chuyển quân cờ")
     }
@@ -66,6 +87,25 @@ function ODiChuyen(props : any) {
     }
     return xhtml;
   }
+  function auto(){
+    // axios.post("https://api.random.org/json-rpc/2/invoke",{
+    //   "jsonrpc": "2.0",
+    //   "method": "generateIntegers",
+    //   "params": {
+    //       "apiKey": "ae2ad27c-e888-4faf-8b58-92a721c07df6",
+    //       "n": 1000,
+    //       "min": 1,
+    //       "max": 6,
+    //       "replacement": true
+    //   },
+    //   "id": 42
+    // }).then(function (response) {
+    //   let xingau = response.data.result.random.data;
+    //   props.auto(xingau);
+    //   console.log("response",response);
+    // })
+    props.auto([1,2,3]);
+  }
   return (
     <>
       <div className="row">
@@ -74,6 +114,11 @@ function ODiChuyen(props : any) {
             <div className="col-12">
               <button style={{marginTop : 10}} className="btn btn-success" onClick={lacXiNgau}>
                 Lắc Xí Ngầu
+              </button>
+            </div>
+            <div className="col-12">
+              <button style={{marginTop : 10}} className="btn btn-success" onClick={auto}>
+                Choi auto
               </button>
             </div>
           </div>
@@ -106,8 +151,11 @@ const mapDispatchToProps = (dispatch : any) => {
       move : () =>{
         dispatch({type : 'MOVE'});
       },
-      lacXiNgau : () =>{
-        dispatch({type : 'LAC_XI_NGAU'});
+      lacXiNgau : (xingau : number) =>{
+        dispatch({type : 'LAC_XI_NGAU',xingau : xingau});
+      },
+      auto : (xingau : any) =>{
+        dispatch({type : 'PLAY_AUTO',xingau : xingau});
       },
       readyToMove : (hourse : Hourse) => {
         dispatch({type : 'READY_MOVE',hourse : hourse})

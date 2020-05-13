@@ -22,8 +22,17 @@ class HourseItem implements Hourse{
         this.odiem = odiem;
         this.finish = finish;
     }
+    setI(i : number){
+        this.i = i;
+    }
+    setJ(j : number){
+        this.j = j
+    }
+    setStatus(status : boolean){
+        this.status = status;
+    }
     move(i : number,j : number,ListCellHaveHourse? : any) : any{
-        let hourse : Hourse = ListCellHaveHourse[JSON.stringify({[i] : j})]
+        let hourse : Hourse = ListCellHaveHourse == null ? null : ListCellHaveHourse[JSON.stringify({[i] : j})]
         if(hourse == null){
             this.i = i;
             this.j = j;
