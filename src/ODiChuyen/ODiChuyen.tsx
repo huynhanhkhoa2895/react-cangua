@@ -23,7 +23,6 @@ function ODiChuyen(props : any) {
       }).then(function (response) {
         let xingau = response.data.result.random.data;
         props.lacXiNgau(xingau);
-        console.log("response",response);
       })
       .catch(function (error) {
         console.log(error);
@@ -88,23 +87,22 @@ function ODiChuyen(props : any) {
     return xhtml;
   }
   function auto(){
-    // axios.post("https://api.random.org/json-rpc/2/invoke",{
-    //   "jsonrpc": "2.0",
-    //   "method": "generateIntegers",
-    //   "params": {
-    //       "apiKey": "ae2ad27c-e888-4faf-8b58-92a721c07df6",
-    //       "n": 1000,
-    //       "min": 1,
-    //       "max": 6,
-    //       "replacement": true
-    //   },
-    //   "id": 42
-    // }).then(function (response) {
-    //   let xingau = response.data.result.random.data;
-    //   props.auto(xingau);
-    //   console.log("response",response);
-    // })
-    props.auto([1,2,3]);
+    axios.post("https://api.random.org/json-rpc/2/invoke",{
+      "jsonrpc": "2.0",
+      "method": "generateIntegers",
+      "params": {
+          "apiKey": "ae2ad27c-e888-4faf-8b58-92a721c07df6",
+          "n": 10000,
+          "min": 1,
+          "max": 6,
+          "replacement": true
+      },
+      "id": 42
+    }).then(function (response) {
+      let xingau = response.data.result.random.data;
+      props.auto(xingau);
+    })
+    // props.auto([6,6,6,3]);
   }
   return (
     <>

@@ -19,11 +19,11 @@ function Main(props : any) {
             <div className="col-md-2 h100">
               <div className="row" style={{height: "50%"}}>
                 <div className="col-md-12 pd0">
-                  <Chat />
+                  {/* <Chat /> */}
                 </div>
               </div>
               <div className="row" style={{height: "50%"}}>
-                <div className="col-md-12 pd0">
+                <div className="col-md-12 pd0 h100">
                   <Note />
                 </div>
               </div>

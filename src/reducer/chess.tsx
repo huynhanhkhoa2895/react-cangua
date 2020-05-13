@@ -4,6 +4,8 @@ import Chess from '../Model/Chess';
 import ChessItem from '../Model/ChessItem';
 import ActionType from '../Model/ActionType';
 import NoteList from '../Model/NoteList'
+import Hourse from '../Model/HourseItem'
+import { ok } from 'assert';
 let hourseList = new HourseListItem;
 let team = ["A","B","C","D"];
 team.forEach((team) => {
@@ -105,78 +107,87 @@ const chess = (chess : Chess = chessItem, action : ActionType = {type : 'MOVE',d
             return {...new_chess}
         case "PLAY_AUTO":
             chessItem.setAuto(true);
-            console.log(action.xingau)
+            let checkChess = true
             action.xingau.forEach((xingau : number)=>{
-                let _checkHourseCanMove : any = null;
-                let _hourseReadyMove : any = null;
-                let _hourseHasMove : any = null;
-                let _nextDestination : any = null;
-                let _oldDestination : any = null;
-                if(!chessItem.finish){
-                    chessItem.setXiNgau(xingau);
-                    chessItem.setStatus(false);
-                    var _currentTeam = team[luot];
-                    note.createStep(stt,_currentTeam,xingau)
-                    if(hourseList.isTeamNotAnyHourse(_currentTeam)){
-                        if(xingau == 1 || xingau == 6){
-                            chessItem.setStatus(false);
-                            // Phai ra quan
-                            _hourseReadyMove = hourseList.setHourseRaQuan(_currentTeam);
-                            console.log(_hourseReadyMove)
-                        }else{
-                            chessItem.setStatus(true);
-                            quaTeam()
-                        }
-                    }else{
-                        if(!chessItem.status){
-                            _checkHourseCanMove = chessItem.checkHourseCanMoveInTeamAuto(_currentTeam)
-                            if(_checkHourseCanMove.status){
-                                // Phai di chuyen
-                                // set REady move
+                var _checkHourseCanMove : any = null;
+                var _hourseReadyMove : Hourse | any = null;
+                var _hourseHasMove : any = null;
+                var _nextDestination : any = null;
+                var _oldDestination : any = null;
+                if(checkChess){
+                    if(!chessItem.finish){
+                        chessItem.setXiNgau(xingau);
+                        chessItem.setStatus(false);
+                        var _currentTeam = team[luot];
+                        note.createStep(stt,_currentTeam,xingau);
+                        if(hourseList.isTeamNotAnyHourse(_currentTeam)){                        
+                            if(xingau == 1 || xingau == 6){
                                 chessItem.setStatus(false);
-                                if(_checkHourseCanMove.hourse == null){
-                                    hourseList.setHourseRaQuan(_currentTeam);
-                                    console.log(hourseList)
-                                }else{
-                                    _hourseReadyMove=_checkHourseCanMove.hourse;
-                                    _oldDestination= JSON.stringify({[_hourseReadyMove.i] : _hourseReadyMove.j})
-                                    _nextDestination = _hourseReadyMove.getNextDestination(chessItem.xingau,chessItem.ListCellHaveHourse);
-                                    console.log(_nextDestination)
-                                    if(_nextDestination != null){
-                                        chessItem.setReadyToMove(action.hourse)
-                                        chessItem.setPositionMustGo(JSON.parse(_nextDestination))
-                                    }
-                                    // set ready move xong di chuyen
-                                    _hourseHasMove = _hourseReadyMove.move(_nextDestination.i,_nextDestination.j,chessItem.ListCellHaveHourse);
-                                    if(_hourseHasMove.status){
-                                        chessItem.setListCellHaveHourse(_hourseReadyMove,_nextDestination,_oldDestination);
-                                        if(_hourseHasMove.kick != null){
-                                            hourseList.kick(_hourseHasMove.kick);
-                                            hourseList.updateChess()
-                                        }
-                                        note.addMoveNote((stt),JSON.parse(_oldDestination),JSON.parse(_nextDestination),_hourseReadyMove,_hourseHasMove.kick)
-                                        hourseList.setHourseWhenMove(_hourseReadyMove,true,chessItem.xingau,chessItem)
-                                    }
-                                    chessItem.updateNoteList(note)
-                                }
+                                // Phai ra quan
+                                _hourseReadyMove = hourseList.setHourseRaQuan(_currentTeam,chessItem);
+                                chessItem.setStatus(true);                            
+                            }else{
+                                chessItem.setStatus(true);
+                                quaTeam()
                             }
-                            else chessItem.setStatus(true);
+                        }else{
+                            if(xingau == 1 || xingau == 6){
+                                _hourseReadyMove = hourseList.setHourseRaQuan(_currentTeam,chessItem);
+                                if(_hourseReadyMove != null) chessItem.setStatus(true);
+                            }
+                            if(!chessItem.status){
+                                _checkHourseCanMove = chessItem.checkHourseCanMoveInTeamAuto(_currentTeam)
+                                if(_checkHourseCanMove.status){
+                                    // Phai di chuyen
+                                    // set REady move
+                                    chessItem.setStatus(false);
+                                    if(_checkHourseCanMove.hourse == null){
+                                        hourseList.setHourseRaQuan(_currentTeam,chessItem);
+                                    }else{
+                                        _hourseReadyMove=_checkHourseCanMove.hourse;
+                                        _oldDestination= JSON.stringify({[_hourseReadyMove.i] : _hourseReadyMove.j})
+                                        _nextDestination = _hourseReadyMove.getNextDestination(chessItem.xingau,chessItem.ListCellHaveHourse);
+                                        if(_nextDestination != null){
+                                            chessItem.setReadyToMove(action.hourse)
+                                            chessItem.setPositionMustGo(JSON.parse(_nextDestination))
+                                        }
+                                        // set ready move xong di chuyen
+                                        let _nextI :any = null;
+                                        let _nextJ : any = null;
+                                        Object.keys(JSON.parse(_nextDestination)).forEach((key : any)=>{
+                                            _nextI = key;
+                                            _nextJ = JSON.parse(_nextDestination)[key];
+                                        })
+                                        _hourseHasMove = _hourseReadyMove.move(_nextI,_nextJ,chessItem.ListCellHaveHourse);
+                                        if(_hourseHasMove.status){
+                                            chessItem.setListCellHaveHourse(_hourseReadyMove,_nextDestination,_oldDestination);
+                                            if(_hourseHasMove.kick != null){
+                                                hourseList.kick(_hourseHasMove.kick);
+                                                hourseList.updateChess()
+                                            }
+                                            note.addMoveNote((stt),JSON.parse(_oldDestination),JSON.parse(_nextDestination),_hourseReadyMove,_hourseHasMove.kick)
+                                            hourseList.setHourseWhenMove(_hourseReadyMove,true,chessItem.xingau,chessItem)
+                                        }
+                                        chessItem.updateNoteList(note)
+                                    }
+                                }
+                                else chessItem.setStatus(true);
+                            }
+                            
+                            if(xingau != 1 && xingau != 6) {
+                                quaTeam()                
+                            }
                         }
-                        
-                        if(xingau != 1 && xingau != 6) {
-                            quaTeam()                
-                        }
+                        // chessItem.setReadyToMove(null)
+                        // chessItem.setPositionMustGo(null);
+                        chessItem.setTeam(_currentTeam);
+                        chessItem.setHourseOnChess(hourseList.updateChess())
+                        chessItem.updateNoteList(note);
+                        stt++;
+                    }else{
+                        checkChess = false;
+                        return false;
                     }
-                    chessItem.setReadyToMove(null)
-                    chessItem.setPositionMustGo(null);
-                    chessItem.setTeam(_currentTeam);
-                    chessItem.setHourseOnChess(hourseList.updateChess())
-                    chessItem.updateNoteList(note);
-                    console.log(chessItem.HourseOnChess)
-                    stt++;
-                }else{
-                    alert("tro choi ket thuc")
-                    return {...chessItem.updateChess()}
                 }
                 
             })
@@ -202,9 +213,6 @@ function lacXiNgau(){
 }
 function lacXiNgauUseAPIRandom(xingau = []){
     return xingau[stt]
-}
-function getXiNgau(){
-
 }
 function quaTeam(){
     luot = luot += 1;

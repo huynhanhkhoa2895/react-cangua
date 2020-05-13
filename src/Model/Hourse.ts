@@ -13,6 +13,7 @@ interface Hourse{
     setStatus(status : boolean) : void;
     move(i: number,j: number) : void;
     kick() : void;
+    raQuan() : void
     getNextDestination(xingau : number,ListCellHaveHourse : any) : void; 
 }
 export default Hourse;

@@ -90,12 +90,14 @@ class ChessItem implements Chess{
     }
     checkHourseCanMoveInTeamAuto(team : string) : any{
         let check = false
+        let checkHourse = true;
         let _hourse : Hourse | any = null;
         this.HourseOnChess[team].forEach((hourse : Hourse,k : any)=>{
-            if(hourse.status){
+            if(hourse.status && checkHourse){
                 if(hourse.getNextDestination(this.xingau,this.ListCellHaveHourse) != null){
                     check = true;
-                    _hourse = hourse
+                    _hourse = hourse;
+                    checkHourse = false;
                 }
             }
         })

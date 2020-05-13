@@ -86,7 +86,6 @@ class HourseItem implements Hourse{
                 if((xingau == 1 || xingau == 6) && ListCellHaveHourse[this.map(position_in_o_diem)] == null){
                     return this.map(position_in_o_diem)
                 }else if(obj[xingau.toString()][this.team] != null && obj[xingau.toString()][this.team] == this.map(position_in_o_diem) && (ListCellHaveHourse[this.map(position_in_o_diem)] == null)){
-                    console.log()
                     return obj[xingau.toString()][this.team]
                 }else{
                     return null;
@@ -119,6 +118,28 @@ class HourseItem implements Hourse{
             return this.map(1)
         }
        
+    }
+    raQuan(){
+        let map : any;
+        switch(this.team){
+            case "A" :
+                map = teamA;
+            break;
+            case "B" :
+                map = teamB
+            break;
+            case "C" :
+                map = teamC
+            break;
+            case "D" :
+                map = teamD
+            break;
+        }
+        Object.keys(JSON.parse(map[1])).forEach((i : any)=>{
+            this.setI(Number(i))
+            this.setJ(JSON.parse(map[1])[i])
+        });
+        this.status = true;
     }
 }
 export default HourseItem

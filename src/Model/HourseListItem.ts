@@ -1,6 +1,8 @@
 import Hourse from './Hourse';
 import {oXuatPhat} from './map'
 import HourseList from './HourseList';
+import ChessItem from './ChessItem';
+import Chess from './Chess';
 class HourseListItem{
     list : HourseList;
     toiLuot : boolean = false;
@@ -26,21 +28,32 @@ class HourseListItem{
         })
         return list2;
     }
-    setHourseRaQuan(team : string){
+    setHourseRaQuan(team : string,chess : ChessItem){
         let _hourse : Hourse | any = null;
         let check = true;
+        let checkCanMove = true;
         let _oXuatPhat : any = oXuatPhat;
+        let ListCellHaveHourse = chess.ListCellHaveHourse;
         this.list[team].forEach((hourse : Hourse)=>{
             if(!hourse.status && check){
-                _hourse = hourse;
-                // hourse.status = true;
-                // hourse.move(1,1);
-                check = false;                
-                // Object.keys(JSON.parse(_oXuatPhat[team])).forEach((key : any)=>{
-                //     hourse.i= Number(key);                    
-                //     hourse.j = JSON.parse(_oXuatPhat[team])[key];
-                // })
-                
+                if(ListCellHaveHourse[_oXuatPhat[team]] != null){
+                    let hourse_in_chess : Hourse = ListCellHaveHourse[_oXuatPhat[team]]
+                    
+                    if(hourse_in_chess.team == hourse.team){
+                        checkCanMove = false;
+                    }
+                }
+                if(checkCanMove){
+                    Object.keys(JSON.parse(_oXuatPhat[team])).forEach((key : any)=>{
+                        hourse.i= Number(key);                    
+                        hourse.j = JSON.parse(_oXuatPhat[team])[key];
+                    })
+                    check = false;
+                    hourse.position = 1;
+                    _hourse = hourse;
+                    hourse.status = true;
+                    chess.setListCellHaveHourse(hourse,_oXuatPhat[team],0)
+                }
             }
         })
         return _hourse;
