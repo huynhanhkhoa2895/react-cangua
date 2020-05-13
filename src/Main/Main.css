@@ -1,5 +1,5 @@
 .map{
-    height: 870px;
+    height: 100%;
     width: 100%;
     border: 1px solid #ccc;
     margin: auto;
@@ -33,7 +33,7 @@
 .note{
     width: 100%;
     background: #fff;
-    height: 870px;
+    height: 100%;
     border: 1px solid #ccc;
     border-radius: 4px;
     overflow: auto;
